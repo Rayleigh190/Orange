@@ -14,6 +14,10 @@ from pathlib import Path
 import os, json
 from django.core.exceptions import ImproperlyConfigured
 
+# mysql 호환용
+import pymysql
+pymysql.install_as_MySQLdb()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -90,8 +94,15 @@ WSGI_APPLICATION = 'orange.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': get_secret("DJANGO_DB_NAME"),
+        'USER': get_secret("DJANGO_DB_USERNAME"),
+        'PASSWORD': get_secret("DJANGO_DB_PASSWORD"),
+        'HOST': get_secret("DJANGO_DB_HOST"),
+        'PORT': get_secret("DJANGO_DB_PORT"),
+        'OPTIONS':{
+            'init_command' : "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
 
