@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from rest_framework.authtoken.models import Token
-# from .models import Profile
+from .models import Profile
 
 
 class RegisterSerializer(serializers.ModelSerializer): # 회원가입 시리얼라이저
@@ -55,8 +55,8 @@ class LoginSerializer(serializers.Serializer):
             {"error": "Unable to log in with provided credentials."})
 
 
-# class ProfileSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Profile
-#         fields = ("nickname", "position", "subjects")
-#         # extra_kwargs = {"image": {"required": False, "allow_null": True}}
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ("nickname", "introduction", "image", "keyword1", "keyword2", "keyword3")
+        # extra_kwargs = {"image": {"required": False, "allow_null": True}}
