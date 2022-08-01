@@ -38,7 +38,7 @@ class RegisterSerializer(serializers.ModelSerializer): # 회원가입 시리얼�
 
         user.set_password(validated_data['password'])
         user.save()
-        token = Token.objects.create(user=user)
+        # token = Token.objects.create(user=user)
         return user
 
 
@@ -49,7 +49,7 @@ class LoginSerializer(serializers.Serializer):
     def validate(self, data):
         user = authenticate(**data)
         if user:
-            token = Token.objects.get(user=user)
+            token = Token.objects.create(user=user)
             return token
         raise serializers.ValidationError(
             {"error": "Unable to log in with provided credentials."})
