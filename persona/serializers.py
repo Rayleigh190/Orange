@@ -4,7 +4,7 @@ from typing import List
 from rest_framework import serializers
 
 from common.serializers import ProfileSerializer
-from .models import Tag, Likes, Strength
+from .models import Tag, Likes, Strength, Weakness
 
 class LikesSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(read_only=True)
@@ -32,3 +32,17 @@ class StrengthCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Strength
         fields = ("content", "tag")
+
+
+class WeaknessSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer(read_only=True)
+
+    class Meta:
+        model = Weakness
+        fields = ("pk", "profile", "content", "hide", "tag")
+
+
+class WeaknessCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Weakness
+        fields = ("content", "hide", "tag")

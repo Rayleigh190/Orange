@@ -3,9 +3,11 @@ from django.shortcuts import render
 from rest_framework import viewsets
 
 from common.models import Profile
-from .models import Likes, Strength
+from .models import Likes, Strength, Weakness
 from .permissions import CustomReadOnly
-from .serializers import LikesSerializer, LikesCreateSerializer, StrengthSerializer, StrengthCreateSerializer
+from .serializers import LikesSerializer, LikesCreateSerializer
+from .serializers import StrengthSerializer, StrengthCreateSerializer
+from .serializers import WeaknessSerializer, WeaknessCreateSerializer
 
 # Create your views here.
 class LikesViewSet(viewsets.ModelViewSet):
@@ -30,6 +32,20 @@ class StrengthViewSet(viewsets.ModelViewSet):
         if self.action == 'list' or 'retrieve':
             return StrengthSerializer
         return StrengthCreateSerializer
+    
+    def perform_create(self, serializer):
+        profile = Profile.objects.get(user=self.request.user)
+        serializer.save(user=self.request.user, profile=profile)
+
+
+class WeaknessViewSet(viewsets.ModelViewSet):
+    queryset = Weakness.objects.all()
+    permission_classes = [CustomReadOnly]
+
+    def get_serializer_class(self):
+        if self.action == 'list' or 'retrieve':
+            return WeaknessSerializer
+        return WeaknessCreateSerializer
     
     def perform_create(self, serializer):
         profile = Profile.objects.get(user=self.request.user)
