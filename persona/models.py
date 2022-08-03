@@ -30,3 +30,10 @@ class Weakness(models.Model):
     content = models.CharField(max_length=128)
     hide = models.BooleanField(default=False)
     tag = models.ForeignKey(Tag, on_delete=models.SET_NULL, null=True)
+
+
+class Value(models.Model):
+    user = user = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True)
+    content = models.CharField(max_length=128)
+    tag = models.ForeignKey(Tag, on_delete=models.SET_NULL, null=True)
