@@ -1,9 +1,10 @@
 from django.urls import path
 from rest_framework import routers
 
-from .views import LikesViewSet
+from .views import LikesViewSet, StrengthViewSet
 
 router = routers.SimpleRouter()
 router.register('likes', LikesViewSet)
+router.register('strength', StrengthViewSet)
 
 urlpatterns = router.urls
