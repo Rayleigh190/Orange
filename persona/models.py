@@ -9,6 +9,18 @@ from common.models import Profile
 class Tag(models.Model):
     tag = models.CharField(max_length=24)
 
+    def __str__(self):
+        return self.tag
+
+
+class Recommendation(models.Model):
+    tag = tag = models.ForeignKey(Tag, on_delete=models.SET_NULL, null=True)
+    subject = models.CharField(max_length=64)
+    content = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.subject
+
 
 ## 내부 페르소나 모델
 class Likes(models.Model):
