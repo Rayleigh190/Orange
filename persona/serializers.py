@@ -5,7 +5,7 @@ from rest_framework import serializers
 
 from common.serializers import ProfileSerializer
 from .models import Tag, Likes, Strength, Weakness, Value
-from .models import Solve, Career
+from .models import Solve, Career, Literacy
 
 ## 내부 모델 시리얼라이저
 class LikesSerializer(serializers.ModelSerializer):
@@ -90,4 +90,18 @@ class CareerSerializer(serializers.ModelSerializer):
 class CareerCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Career
+        fields = ("content", "tag")
+
+
+class LiteracySerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer(read_only=True)
+
+    class Meta:
+        model = Literacy
+        fields = ("pk", "profile", "content", "tag")
+
+
+class LiteracyCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Literacy
         fields = ("content", "tag")
