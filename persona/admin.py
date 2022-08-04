@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Tag, Likes, Strength, Weakness, Value, Solve, Career, Literacy
+from .models import Tag, Likes, Strength, Weakness, Value, Solve, Career, Literacy, Language
 # Register your models here.
 
 ## 내부
@@ -12,3 +12,4 @@ admin.site.register(Value)
 admin.site.register(Solve)
 admin.site.register(Career)
 admin.site.register(Literacy)
+admin.site.register(Language)

@@ -2,7 +2,7 @@ from django.urls import path
 from rest_framework import routers
 
 from .views import LikesViewSet, StrengthViewSet, WeaknessViewSet, ValueViewSet
-from .views import SolveViewSet, CareerViewSet, LiteracyViewSet
+from .views import SolveViewSet, CareerViewSet, LiteracyViewSet, LanguageViewSet
 
 router = routers.SimpleRouter()
 ## 내부 inner/
@@ -14,5 +14,6 @@ router.register('value', ValueViewSet)
 router.register('solve', SolveViewSet)
 router.register('career', CareerViewSet)
 router.register('literacy', LiteracyViewSet)
+router.register('language', LanguageViewSet)
 
 urlpatterns = router.urls
