@@ -4,13 +4,14 @@ from rest_framework import viewsets
 
 from common.models import Profile
 from .models import Likes, Strength, Weakness, Value
-from .models import Solve
+from .models import Solve, Career
 from .permissions import CustomReadOnly
 from .serializers import LikesSerializer, LikesCreateSerializer
 from .serializers import StrengthSerializer, StrengthCreateSerializer
 from .serializers import WeaknessSerializer, WeaknessCreateSerializer
 from .serializers import ValueSerializer, ValueCreateSerializer
 from .serializers import SolveSerializer, SolveCreateSerializer
+from .serializers import CareerSerializer, CareerCreateSerializer
 
 # Create your views here.
 ## 내부 뷰셋
@@ -79,6 +80,20 @@ class SolveViewSet(viewsets.ModelViewSet):
         if self.action == 'list' or 'retrieve':
             return SolveSerializer
         return SolveCreateSerializer
+    
+    def perform_create(self, serializer):
+        profile = Profile.objects.get(user=self.request.user)
+        serializer.save(user=self.request.user, profile=profile)
+
+
+class CareerViewSet(viewsets.ModelViewSet):
+    queryset = Career.objects.all()
+    permission_classes = [CustomReadOnly]
+
+    def get_serializer_class(self):
+        if self.action == 'list' or 'retrieve':
+            return CareerSerializer
+        return CareerCreateSerializer
     
     def perform_create(self, serializer):
         profile = Profile.objects.get(user=self.request.user)
