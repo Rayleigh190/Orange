@@ -5,7 +5,7 @@ from rest_framework import serializers
 
 from common.serializers import ProfileSerializer
 from .models import Tag, Likes, Strength, Weakness, Value
-from .models import Solve, Career, Literacy, Language
+from .models import Solve, Career, Literacy, Language, MBTI
 
 ## 내부 모델 시리얼라이저
 class LikesSerializer(serializers.ModelSerializer):
@@ -119,3 +119,17 @@ class LanguageCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Language
         fields = ("content", "tag")
+
+
+class MBTISerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer(read_only=True)
+
+    class Meta:
+        model = MBTI
+        fields = ("pk", "profile", "energy", "recognition", "judgment", "lifestyle")
+
+
+class MBTICreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MBTI
+        fields = ("energy", "recognition", "judgment", "lifestyle")

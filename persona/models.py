@@ -1,6 +1,7 @@
 from os import O_NDELAY
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 from common.models import Profile
 
@@ -68,3 +69,12 @@ class Language(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True)
     content = models.CharField(max_length=128)
     tag = models.ForeignKey(Tag, on_delete=models.SET_NULL, null=True)
+
+
+class MBTI(models.Model):
+    user = user = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True)
+    energy = models.IntegerField(default=0, validators=[MinValueValidator(-100), MaxValueValidator(100)])
+    recognition = models.IntegerField(default=0, validators=[MinValueValidator(-100), MaxValueValidator(100)])
+    judgment = models.IntegerField(default=0, validators=[MinValueValidator(-100), MaxValueValidator(100)])
+    lifestyle = models.IntegerField(default=0, validators=[MinValueValidator(-100), MaxValueValidator(100)])
