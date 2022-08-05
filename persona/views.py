@@ -1,17 +1,15 @@
-import imp
-import profile
 import random
-from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 
 from common.models import Profile
 from .models import Recommendation
 from .models import Likes, Strength, Weakness, Value
 from .models import Solve, Career, Literacy, Language, MBTI
 from .permissions import CustomReadOnly
-from .serializers import RecommendationSerializer
+from .serializers import RecommendationSerializer, RecommendationCreateSerializer
 from .serializers import LikesSerializer, LikesCreateSerializer
 from .serializers import StrengthSerializer, StrengthCreateSerializer
 from .serializers import WeaknessSerializer, WeaknessCreateSerializer
@@ -55,6 +53,16 @@ class InnerRecommendationAPI(APIView): # 내부 페르소나 관련 추천 게�
             RecommendationList = RecommendationList.union(recommendation) # 빈 쿼리셋에 넣기
         serializer = RecommendationSerializer(RecommendationList, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class RecommendationViewSet(viewsets.ModelViewSet):
+    queryset = Recommendation.objects.all()
+    permission_classes = [IsAuthenticated]
+
+    def get_serializer_class(self):
+        if self.action == 'list' or 'retrieve':
+            return RecommendationSerializer
+        return RecommendationCreateSerializer
 
 
 ## 내부 뷰셋

@@ -1,6 +1,3 @@
-import profile
-from pyexpat import model
-from typing import List
 from rest_framework import serializers
 
 from common.serializers import ProfileSerializer
@@ -10,6 +7,12 @@ from .models import Solve, Career, Literacy, Language, MBTI
 
 ## 프리즘 모델 시리얼라이저
 class RecommendationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Recommendation
+        fields = ("pk", "tag", "subject", "content")
+
+
+class RecommendationCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recommendation
         fields = ("tag", "subject", "content")
