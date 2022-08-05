@@ -18,7 +18,7 @@ router.register('literacy', LiteracyViewSet)
 router.register('language', LanguageViewSet)
 router.register('mbti', MBTIViewSet)
 ## recommendation/
-router.register('', RecommendationViewSet)
+router.register('crud', RecommendationViewSet)
 
 ## 프리즘, prism/
 urlpatterns = router.urls + [
