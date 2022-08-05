@@ -14,7 +14,7 @@ class Tag(models.Model):
 
 
 class Recommendation(models.Model):
-    tag = tag = models.ForeignKey(Tag, on_delete=models.SET_NULL, null=True)
+    tag = models.ForeignKey(Tag, on_delete=models.SET_NULL, null=True)
     subject = models.CharField(max_length=64)
     content = models.CharField(max_length=128)
 

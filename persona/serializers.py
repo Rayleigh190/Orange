@@ -4,8 +4,16 @@ from typing import List
 from rest_framework import serializers
 
 from common.serializers import ProfileSerializer
+from .models import Recommendation
 from .models import Tag, Likes, Strength, Weakness, Value
 from .models import Solve, Career, Literacy, Language, MBTI
+
+## 프리즘 모델 시리얼라이저
+class RecommendationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Recommendation
+        fields = ("tag", "subject", "content")
+
 
 ## 내부 모델 시리얼라이저
 class LikesSerializer(serializers.ModelSerializer):
