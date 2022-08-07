@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from common.serializers import ProfileSerializer
-from .models import Recommendation
+from .models import Recommendation, HidePersona
 from .models import Tag, Likes, Strength, Weakness, Value
 from .models import Solve, Career, Literacy, Language, MBTI
 
@@ -16,6 +16,20 @@ class RecommendationCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recommendation
         fields = ("tag", "subject", "content")
+
+
+class HidePersonaSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer(read_only=True)
+
+    class Meta:
+        model = HidePersona
+        fields = ("pk", "profile", "HideLikes", "HideStrength", "HideWeakness", "HideValue", "HideSolve", "HideCareer", "HideLiteracy", "HideLanguage", "HideMBTI")
+
+
+class HidePersonaCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HidePersona
+        fields = ("HideLikes", "HideStrength", "HideWeakness", "HideValue", "HideSolve", "HideCareer", "HideLiteracy", "HideLanguage", "HideMBTI")
 
 
 ## 내부 모델 시리얼라이저

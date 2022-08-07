@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Tag, Recommendation, Likes, Strength, Weakness, Value, Solve, Career, Literacy, Language, MBTI
+from .models import Tag, Recommendation, Likes, Strength, Weakness, Value, Solve, Career, Literacy, Language, MBTI, HidePersona
 # Register your models here.
 
 class ModelAdmin(admin.ModelAdmin):
@@ -8,6 +8,7 @@ class ModelAdmin(admin.ModelAdmin):
 
 admin.site.register(Tag, ModelAdmin)
 admin.site.register(Recommendation, ModelAdmin)
+admin.site.register(HidePersona, ModelAdmin)
 
 ## 내부
 admin.site.register(Likes, ModelAdmin)

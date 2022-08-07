@@ -21,6 +21,20 @@ class Recommendation(models.Model):
         return self.subject
 
 
+class HidePersona(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, blank=True)
+    HideLikes = models.BooleanField(default=False)
+    HideStrength = models.BooleanField(default=False)
+    HideWeakness = models.BooleanField(default=False)
+    HideValue = models.BooleanField(default=False)
+    HideSolve = models.BooleanField(default=False)
+    HideCareer = models.BooleanField(default=False)
+    HideLiteracy = models.BooleanField(default=False)
+    HideLanguage = models.BooleanField(default=False)
+    HideMBTI = models.BooleanField(default=False)
+
+
 ## 내부 페르소나 모델
 class Likes(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -41,7 +55,6 @@ class Weakness(models.Model):
     user = user = models.ForeignKey(User, on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True)
     content = models.CharField(max_length=128)
-    hide = models.BooleanField(default=False)
     tag = models.ForeignKey(Tag, on_delete=models.SET_NULL, null=True)
 
 

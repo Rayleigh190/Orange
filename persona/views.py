@@ -5,11 +5,12 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 
 from common.models import Profile
-from .models import Recommendation
+from .models import Recommendation, HidePersona
 from .models import Likes, Strength, Weakness, Value
 from .models import Solve, Career, Literacy, Language, MBTI
 from .permissions import CustomReadOnly
 from .serializers import RecommendationSerializer, RecommendationCreateSerializer
+from .serializers import HidePersonaSerializer, HidePersonaCreateSerializer
 from .serializers import LikesSerializer, LikesCreateSerializer
 from .serializers import StrengthSerializer, StrengthCreateSerializer
 from .serializers import WeaknessSerializer, WeaknessCreateSerializer
@@ -86,6 +87,20 @@ class RecommendationViewSet(viewsets.ModelViewSet):
         if self.action == 'list' or 'retrieve':
             return RecommendationSerializer
         return RecommendationCreateSerializer
+
+
+class HidePersonaViewSet(viewsets.ModelViewSet):
+    queryset = HidePersona.objects.all()
+    permission_classes = [CustomReadOnly]
+
+    def get_serializer_class(self):
+        if self.action == 'list' or 'retrieve':
+            return HidePersonaSerializer
+        return HidePersonaCreateSerializer
+    
+    def perform_create(self, serializer):
+        profile = Profile.objects.get(user=self.request.user)
+        serializer.save(user=self.request.user, profile=profile)
 
 
 ## 내부 뷰셋
