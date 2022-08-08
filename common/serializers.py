@@ -64,4 +64,4 @@ class ProfileSerializer(serializers.ModelSerializer):
 class FollowSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ("nickname", "image")
+        fields = ("user", "nickname", "image")
