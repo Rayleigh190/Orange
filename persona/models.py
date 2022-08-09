@@ -96,8 +96,8 @@ class Language(models.Model):
 
 
 class MBTI(models.Model):
-    user = user = models.ForeignKey(User, on_delete=models.CASCADE)
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True)
+    user = user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, blank=True)
     energy = models.IntegerField(default=0, validators=[MinValueValidator(-100), MaxValueValidator(100)])
     recognition = models.IntegerField(default=0, validators=[MinValueValidator(-100), MaxValueValidator(100)])
     judgment = models.IntegerField(default=0, validators=[MinValueValidator(-100), MaxValueValidator(100)])

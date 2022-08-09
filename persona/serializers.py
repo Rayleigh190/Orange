@@ -66,13 +66,13 @@ class WeaknessSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Weakness
-        fields = ("pk", "profile", "content", "hide", "tag")
+        fields = ("pk", "profile", "content", "tag")
 
 
 class WeaknessCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Weakness
-        fields = ("content", "hide", "tag")
+        fields = ("content", "tag")
 
 
 class ValueSerializer(serializers.ModelSerializer):
