@@ -1,4 +1,3 @@
-from os import O_NDELAY
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -8,6 +7,32 @@ from common.models import Profile
 # Create your models here.
 class Tag(models.Model):
     tag = models.CharField(max_length=24)
+
+    def __str__(self):
+        return self.tag
+
+
+class Recommendation(models.Model):
+    tag = models.ForeignKey(Tag, on_delete=models.SET_NULL, null=True)
+    subject = models.CharField(max_length=64)
+    content = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.subject
+
+
+class HidePersona(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, blank=True)
+    HideLikes = models.BooleanField(default=False)
+    HideStrength = models.BooleanField(default=False)
+    HideWeakness = models.BooleanField(default=False)
+    HideValue = models.BooleanField(default=False)
+    HideSolve = models.BooleanField(default=False)
+    HideCareer = models.BooleanField(default=False)
+    HideLiteracy = models.BooleanField(default=False)
+    HideLanguage = models.BooleanField(default=False)
+    HideMBTI = models.BooleanField(default=False)
 
 
 ## 내부 페르소나 모델
@@ -30,7 +55,6 @@ class Weakness(models.Model):
     user = user = models.ForeignKey(User, on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True)
     content = models.CharField(max_length=128)
-    hide = models.BooleanField(default=False)
     tag = models.ForeignKey(Tag, on_delete=models.SET_NULL, null=True)
 
 
@@ -72,8 +96,8 @@ class Language(models.Model):
 
 
 class MBTI(models.Model):
-    user = user = models.ForeignKey(User, on_delete=models.CASCADE)
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, blank=True)
+    user = user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, blank=True)
     energy = models.IntegerField(default=0, validators=[MinValueValidator(-100), MaxValueValidator(100)])
     recognition = models.IntegerField(default=0, validators=[MinValueValidator(-100), MaxValueValidator(100)])
     judgment = models.IntegerField(default=0, validators=[MinValueValidator(-100), MaxValueValidator(100)])

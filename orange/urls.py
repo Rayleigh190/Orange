@@ -24,4 +24,6 @@ urlpatterns = [
     path('users/', include('common.urls')),
     path('inner/', include('persona.urls')),
     path('outer/', include('persona.urls')),
+    path('prism/', include('persona.urls')),
+    path('recommendation/', include('persona.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -10,7 +10,8 @@ class Profile(models.Model):
     nickname = models.CharField(max_length=128)
     introduction = models.CharField(max_length=256, null=True)
     image = models.ImageField(upload_to='profile/', default='default.png')
-    # followings = models.ManyToManyField('self', symmetrical=False, related_name='followers') # 나중에 구현
+    follower = models.ManyToManyField('self', blank=True, symmetrical=False, related_name='followings')
+    following = models.ManyToManyField('self', blank=True, symmetrical=False, related_name='followers')
     keyword1 = models.CharField(max_length=24, null=True)
     keyword2 = models.CharField(max_length=24, null=True)
     keyword3 = models.CharField(max_length=24, null=True)

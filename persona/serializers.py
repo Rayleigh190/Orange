@@ -1,11 +1,36 @@
-import profile
-from pyexpat import model
-from typing import List
 from rest_framework import serializers
 
 from common.serializers import ProfileSerializer
+from .models import Recommendation, HidePersona
 from .models import Tag, Likes, Strength, Weakness, Value
 from .models import Solve, Career, Literacy, Language, MBTI
+
+## 프리즘 모델 시리얼라이저
+class RecommendationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Recommendation
+        fields = ("pk", "tag", "subject", "content")
+
+
+class RecommendationCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Recommendation
+        fields = ("tag", "subject", "content")
+
+
+class HidePersonaSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer(read_only=True)
+
+    class Meta:
+        model = HidePersona
+        fields = ("pk", "profile", "HideLikes", "HideStrength", "HideWeakness", "HideValue", "HideSolve", "HideCareer", "HideLiteracy", "HideLanguage", "HideMBTI")
+
+
+class HidePersonaCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HidePersona
+        fields = ("HideLikes", "HideStrength", "HideWeakness", "HideValue", "HideSolve", "HideCareer", "HideLiteracy", "HideLanguage", "HideMBTI")
+
 
 ## 내부 모델 시리얼라이저
 class LikesSerializer(serializers.ModelSerializer):
@@ -41,13 +66,13 @@ class WeaknessSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Weakness
-        fields = ("pk", "profile", "content", "hide", "tag")
+        fields = ("pk", "profile", "content", "tag")
 
 
 class WeaknessCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Weakness
-        fields = ("content", "hide", "tag")
+        fields = ("content", "tag")
 
 
 class ValueSerializer(serializers.ModelSerializer):
