@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os, json
+from tkinter.tix import Tree
 from django.core.exceptions import ImproperlyConfigured
 
 # mysql 호환용
@@ -42,7 +43,7 @@ SECRET_KEY = get_env_variable('DJANGO_SECRET')
 # get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
