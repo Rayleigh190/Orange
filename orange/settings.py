@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os, json
-from tkinter.tix import Tree
 from django.core.exceptions import ImproperlyConfigured
 
 # mysql 호환용
