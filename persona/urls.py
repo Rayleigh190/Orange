@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework import routers
 
-from .views import InnerRecommendationAPI, OuterRecommendationAPI, RecommendationViewSet, HidePersonaViewSet
+from .views import InnerRecommendationAPI, OuterRecommendationAPI, RecommendationViewSet, HidePersonaViewSet, TagViewSet
 from .views import LikesViewSet, StrengthViewSet, WeaknessViewSet, ValueViewSet
 from .views import SolveViewSet, CareerViewSet, LiteracyViewSet, LanguageViewSet, MBTIViewSet
 
@@ -18,9 +18,11 @@ router.register('literacy', LiteracyViewSet)
 router.register('language', LanguageViewSet)
 router.register('mbti', MBTIViewSet)
 ## recommendation/
-router.register('crud', RecommendationViewSet)
+router.register('recommendation', RecommendationViewSet)
 ## 게시물 숨기기, prism/
 router.register('hide', HidePersonaViewSet)
+## tag/
+router.register('tag', TagViewSet)
 
 ## 프리즘, prism/
 urlpatterns = router.urls + [
