@@ -5,6 +5,19 @@ from .models import Recommendation, HidePersona
 from .models import Tag, Likes, Strength, Weakness, Value
 from .models import Solve, Career, Literacy, Language, MBTI
 
+## 테그 모델 시리얼 라이저
+class TagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = ("pk", "tag")
+
+
+class TagCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = ("tag")
+
+
 ## 프리즘 모델 시리얼라이저
 class RecommendationSerializer(serializers.ModelSerializer):
     class Meta:

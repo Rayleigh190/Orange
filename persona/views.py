@@ -5,10 +5,11 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 
 from common.models import Profile
-from .models import Recommendation, HidePersona
+from .models import Tag, Recommendation, HidePersona
 from .models import Likes, Strength, Weakness, Value
 from .models import Solve, Career, Literacy, Language, MBTI
 from .permissions import CustomReadOnly
+from .serializers import TagSerializer, TagCreateSerializer
 from .serializers import RecommendationSerializer, RecommendationCreateSerializer
 from .serializers import HidePersonaSerializer, HidePersonaCreateSerializer
 from .serializers import LikesSerializer, LikesCreateSerializer
@@ -101,6 +102,17 @@ class HidePersonaViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         profile = Profile.objects.get(user=self.request.user)
         serializer.save(user=self.request.user, profile=profile)
+
+
+## 태그 뷰셋
+class TagViewSet(viewsets.ModelViewSet):
+    queryset = Tag.objects.all()
+    permission_classes = [CustomReadOnly]
+
+    def get_serializer_class(self):
+        if self.action == 'list' or 'retrieve':
+            return TagSerializer
+        return TagCreateSerializer
 
 
 ## 내부 뷰셋
